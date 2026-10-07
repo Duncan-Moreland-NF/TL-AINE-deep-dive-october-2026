@@ -1,0 +1,1122 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Tech lead sessions summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;700&family=Inter:wght@300..600&display=swap" rel="stylesheet">
+<script>(function(){var r=document.documentElement;if(r.getAttribute("data-theme"))return;try{if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)r.dataset.theme="dark";}catch(e){}})();</script>
+<style>
+/* Hallmark · component-system · brand: Nearform mode · macrostructure: n/a (system reference)
+ * pre-emit critique: P5 H4 E4 S4 R5 V4
+ * Nearform brand stylesheet, the published CSS API for Nearform-authored applications.
+ * Pair with design.md (same folder). Tokens are read-only: reference them with var(),
+ * never redeclare or alias an --nf-* token in page CSS.
+ */
+
+/* ============================================================
+   1 · Tokens
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* Primary palette */
+  --nf-midnight:     #000E38;
+  --nf-green:        #00E5A4;
+  --nf-white:        #FFFFFF;
+
+  /* Accent palette */
+  --nf-purple:       #8950FF;
+  --nf-blue:         #166BFF;
+
+  /* Midnight shades */
+  --nf-midnight-80:  #0C3D60;
+  --nf-midnight-50:  #526288;
+  --nf-midnight-30:  #97A1B8;
+  --nf-midnight-10:  #F4F8FA;
+
+  /* Green shades */
+  --nf-green-80:     #33EAAE;
+  --nf-green-50:     #78EEC5;
+  --nf-green-30:     #B2F7E1;
+  --nf-green-10:     #E5FCF5;
+
+  /* Purple shades */
+  --nf-purple-80:    #A173FF;
+  --nf-purple-50:    #C4A7FF;
+  --nf-purple-30:    #DCCAFF;
+  --nf-purple-10:    #F3EDFF;
+
+  /* Blue shades */
+  --nf-blue-80:      #4589FF;
+  --nf-blue-50:      #8AB5FF;
+  --nf-blue-30:      #B9D3FF;
+  --nf-blue-10:      #E8F0FF;
+
+  /* Grey tones */
+  --nf-grey-10:      #EAEBED;
+  --nf-grey-30:      #D9D9D9;
+  --nf-grey-80:      #454551;
+
+  /* Dark surfaces, neutral tier for the dark theme, darker than Midnight 80 */
+  --nf-dark-bg:            #070A14;
+  --nf-dark-surface:       #0D1220;
+  --nf-dark-raised:        #151B2C;
+  --nf-dark-border:        #222941;
+  --nf-dark-border-strong: #354061;
+
+  /* Status, status semantics only, never decoration */
+  --nf-danger:       #D92D20;
+  --nf-danger-10:    #FEF1F0;
+  --nf-warning:      #B45309;
+  --nf-warning-10:   #FDF6EC;
+  --nf-success:      #2B7D63;
+  --nf-success-10:   var(--nf-green-10);
+
+  /* Semantic aliases, these are what the dark theme flips */
+  --nf-text:            var(--nf-midnight);
+  --nf-text-secondary:  var(--nf-midnight-50);
+  --nf-text-on-dark:    var(--nf-white);
+  --nf-surface:         var(--nf-white);
+  --nf-surface-raised:  var(--nf-midnight-10);
+  --nf-surface-dark:    var(--nf-midnight);
+  --nf-field-bg:        var(--nf-white);
+  --nf-border-subtle:   var(--nf-grey-10);
+  --nf-border:          var(--nf-grey-30);
+  --nf-border-strong:   var(--nf-midnight-30);
+  --nf-link:            var(--nf-blue);
+  --nf-link-on-dark:    var(--nf-blue-50);
+  --nf-focus:           var(--nf-blue);
+  --nf-focus-on-dark:   var(--nf-green);
+  --nf-danger-fg:       var(--nf-danger);
+  --nf-warning-fg:      var(--nf-warning);
+  --nf-success-fg:      var(--nf-success);
+
+  /* Typography */
+  --nf-font-sans:  'Inter', system-ui, -apple-system, sans-serif;
+  --nf-font-serif: 'Bitter', Georgia, serif;              /* pull-quotes and table headers only */
+  --nf-font-mono:  ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --nf-text-display: clamp(2.5rem, 5vw, 3.5rem);
+  --nf-text-title:   2rem;
+  --nf-text-h24:     1.5rem;
+  --nf-text-h20:     1.25rem;
+  --nf-text-h16:     1.0625rem;
+  --nf-text-lede:    1.125rem;
+  --nf-text-body:    1rem;
+  --nf-text-small:   0.875rem;
+  --nf-text-label:   0.8125rem;
+  --nf-text-caption: 0.75rem;
+
+  --nf-weight-regular:  400;
+  --nf-weight-heading:  500;   /* headings are never bold, weight 500 carries hierarchy */
+  --nf-weight-semibold: 600;   /* buttons, table emphasis */
+
+  --nf-leading-body:    1.5;
+  --nf-leading-heading: 1.2;
+  --nf-leading-display: 1.08;
+
+  /* Spacing, 4pt scale */
+  --nf-space-1:  4px;
+  --nf-space-2:  8px;
+  --nf-space-3:  12px;
+  --nf-space-4:  16px;
+  --nf-space-5:  20px;
+  --nf-space-6:  24px;
+  --nf-space-8:  32px;
+  --nf-space-10: 40px;
+  --nf-space-12: 48px;
+  --nf-space-16: 64px;
+
+  /* Radius, one scale for the whole system */
+  --nf-radius-xs:   6px;    /* inline code, tiny elements */
+  --nf-radius-sm:   8px;    /* buttons, inputs, selects, alerts, icon tile backings, code blocks */
+  --nf-radius-md:   10px;   /* cards, panels, table wrappers */
+  --nf-radius-lg:   12px;   /* gradient panels, media */
+  --nf-radius-pill: 999px;  /* badges, chips, switches */
+  --nf-radius-control: var(--nf-radius-sm);   /* buttons + form fields share this */
+
+  /* Motion */
+  --nf-ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --nf-ease-soft: cubic-bezier(0.45, 0.05, 0.55, 0.95);   /* gentle in and out, for micro-animations */
+  --nf-dur-fast: 150ms;
+  --nf-dur-base: 200ms;
+  --nf-dur-slow: 400ms;   /* micro-animations, e.g. the button icon slide */
+}
+
+/* ============================================================
+   1b · Dark theme, set data-theme="dark" on <html>
+   The init snippet in design.md reads the stored choice or the
+   system preference before first paint.
+   ============================================================ */
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --nf-text:           var(--nf-white);
+  --nf-text-secondary: var(--nf-midnight-30);
+  --nf-surface:        var(--nf-dark-bg);
+  --nf-surface-raised: var(--nf-dark-surface);
+  --nf-surface-dark:   var(--nf-dark-raised);
+  --nf-field-bg:       var(--nf-dark-surface);
+  --nf-border-subtle:  var(--nf-dark-border);
+  --nf-border:         var(--nf-dark-border);
+  --nf-border-strong:  var(--nf-dark-border-strong);
+  --nf-link:           var(--nf-blue-50);
+  --nf-focus:          var(--nf-green);
+  --nf-danger-fg:      #FF8177;
+  --nf-warning-fg:     #F0B429;
+  --nf-success-fg:     var(--nf-green-80);
+}
+
+/* ============================================================
+   2 · Base
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { overflow-x: clip; }
+
+body {
+  margin: 0;
+  font-family: var(--nf-font-sans);
+  font-size: var(--nf-text-body);
+  line-height: var(--nf-leading-body);
+  color: var(--nf-text);
+  background: var(--nf-surface);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--nf-font-sans);
+  font-weight: var(--nf-weight-heading);
+  line-height: var(--nf-leading-heading);
+  color: var(--nf-text);
+  text-transform: none;   /* sentence case is a brand law */
+  margin: 0;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+h1 { font-size: var(--nf-text-title); }
+h2 { font-size: var(--nf-text-h24); }
+h3 { font-size: var(--nf-text-h20); }
+h4 { font-size: var(--nf-text-h16); }
+
+p { margin: 0; }
+
+a {
+  color: var(--nf-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+a:focus-visible {
+  outline: 2px solid var(--nf-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+code, pre { font-family: var(--nf-font-mono); font-size: 0.875em; }
+pre {
+  background: var(--nf-surface-raised);
+  border: 1px solid var(--nf-border-subtle);
+  border-radius: var(--nf-radius-sm);
+  padding: var(--nf-space-4);
+  overflow-x: auto;
+}
+
+.nf-container {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: var(--nf-space-6);
+}
+
+@media (max-width: 480px) {
+  .nf-container { padding-inline: var(--nf-space-4); }
+}
+
+/* Dark scope, apply to any Midnight-backed section */
+.nf-on-dark {
+  color: var(--nf-text-on-dark);
+  background: var(--nf-surface-dark);
+}
+.nf-on-dark h1, .nf-on-dark h2, .nf-on-dark h3, .nf-on-dark h4 { color: var(--nf-text-on-dark); }
+.nf-on-dark a:not(.nf-btn) { color: var(--nf-link-on-dark); }
+.nf-on-dark a:focus-visible { outline-color: var(--nf-focus-on-dark); }
+
+/* Buttons rendered as anchors keep their own colours */
+a.nf-btn-primary, .nf-on-dark a.nf-btn-primary { color: var(--nf-midnight); }
+a.nf-btn-secondary { color: var(--nf-midnight); }
+.nf-on-dark a.nf-btn-secondary, .nf-on-dark a.nf-btn-ghost { color: var(--nf-white); }
+
+/* ============================================================
+   3 · Type roles
+   ============================================================ */
+
+.nf-display {
+  font-size: var(--nf-text-display);
+  font-weight: var(--nf-weight-heading);
+  line-height: var(--nf-leading-display);
+  letter-spacing: -0.015em;
+}
+.nf-title    { font-size: var(--nf-text-title); font-weight: var(--nf-weight-heading); line-height: var(--nf-leading-heading); letter-spacing: -0.01em; }
+.nf-lede     { font-size: var(--nf-text-lede); color: var(--nf-text-secondary); max-width: 60ch; }
+.nf-small    { font-size: var(--nf-text-small); }
+.nf-label    { font-size: var(--nf-text-label); font-weight: var(--nf-weight-heading); }
+.nf-caption  { font-size: var(--nf-text-caption); color: var(--nf-text-secondary); }
+.nf-numeric  { font-variant-numeric: tabular-nums; text-align: right; }
+
+/* Bitter, pull-quotes and standout statements only */
+.nf-pull-quote {
+  font-family: var(--nf-font-serif);
+  font-size: var(--nf-text-h24);
+  font-weight: var(--nf-weight-regular);
+  line-height: 1.35;
+  color: var(--nf-text);
+  max-width: 40ch;
+}
+
+/* Brand motifs */
+.nf-u { color: var(--nf-green); }   /* trailing underscore: <h1>Heading<span class="nf-u">_</span></h1> */
+
+.nf-accent-bar {
+  display: block;
+  width: 48px;
+  height: 4px;
+  background: var(--nf-green);
+  border: none;
+  margin: 0 0 var(--nf-space-4);
+}
+
+/* ============================================================
+   4 · Buttons
+   ============================================================ */
+
+.nf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--nf-space-2);
+  font-family: var(--nf-font-sans);
+  font-size: var(--nf-text-small);
+  font-weight: var(--nf-weight-semibold);
+  line-height: 1;
+  text-transform: none;      /* sentence case, always */
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 9px 23px;
+  min-height: 40px;
+  border: 1px solid transparent;   /* reserves space for the hover border */
+  border-radius: var(--nf-radius-control);
+  cursor: pointer;
+  transition: background-color var(--nf-dur-base) var(--nf-ease-soft),
+              border-color var(--nf-dur-base) var(--nf-ease-soft),
+              color var(--nf-dur-base) var(--nf-ease-soft);
+}
+.nf-btn svg { width: 16px; height: 16px; flex: none; }
+
+.nf-btn:focus-visible,
+.nf-input:focus-visible,
+.nf-select:focus-visible,
+.nf-checkbox:focus-visible,
+.nf-radio:focus-visible,
+.nf-switch:focus-visible {
+  outline: 2px solid var(--nf-focus);
+  outline-offset: 2px;
+}
+.nf-on-dark .nf-btn:focus-visible { outline-color: var(--nf-focus-on-dark); }
+
+.nf-btn:active:not(:disabled), .nf-btn.is-active { transform: translateY(1px); }
+
+.nf-btn:disabled, .nf-btn.is-disabled {
+  background: var(--nf-grey-10);
+  color: var(--nf-midnight-30);
+  border-color: transparent;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Primary, Midnight on Green (never white on green); hover lifts to Purple 10 */
+.nf-btn-primary { background: var(--nf-green); color: var(--nf-midnight); }
+.nf-btn-primary:hover:not(:disabled), .nf-btn-primary.is-hover {
+  background: var(--nf-purple-10);
+}
+
+/* Secondary, outline; hover tints Midnight 10 */
+.nf-btn-secondary {
+  background: transparent;
+  color: var(--nf-midnight);
+  border-color: var(--nf-midnight);
+}
+.nf-btn-secondary:hover:not(:disabled), .nf-btn-secondary.is-hover { background: var(--nf-midnight-10); }
+.nf-on-dark .nf-btn-secondary { color: var(--nf-white); border-color: var(--nf-white); }
+.nf-on-dark .nf-btn-secondary:hover:not(:disabled),
+.nf-on-dark .nf-btn-secondary.is-hover { background: color-mix(in srgb, var(--nf-white) 12%, transparent); }
+.nf-on-dark .nf-btn-secondary:disabled {
+  background: transparent;
+  color: var(--nf-midnight-50);
+  border-color: var(--nf-midnight-50);
+}
+
+/* Icon, icon-only controls (theme switchers, menu toggles). Always give an aria-label */
+.nf-btn-icon {
+  background: var(--nf-midnight-10);
+  color: var(--nf-midnight);
+  width: 40px;
+  padding: 9px;
+}
+.nf-btn-icon:hover:not(:disabled), .nf-btn-icon.is-hover {
+  background: var(--nf-midnight);
+  color: var(--nf-white);
+}
+.nf-btn-sm.nf-btn-icon { width: 32px; padding: 6px; }
+.nf-btn-lg.nf-btn-icon { width: 48px; padding: 12px; }
+
+/* Ghost, quiet actions */
+.nf-btn-ghost { background: transparent; color: var(--nf-midnight); }
+.nf-btn-ghost:hover:not(:disabled), .nf-btn-ghost.is-hover { background: var(--nf-midnight-10); }
+.nf-btn-ghost:disabled { background: transparent; }
+.nf-on-dark .nf-btn-ghost { color: var(--nf-white); }
+.nf-on-dark .nf-btn-ghost:hover:not(:disabled),
+.nf-on-dark .nf-btn-ghost.is-hover { background: color-mix(in srgb, var(--nf-white) 12%, transparent); }
+
+/* Danger, destructive actions only */
+.nf-btn-danger { background: var(--nf-danger); color: var(--nf-white); }
+.nf-btn-danger:hover:not(:disabled), .nf-btn-danger.is-hover { background: color-mix(in srgb, var(--nf-danger) 85%, var(--nf-midnight)); }
+
+/* Sizes */
+.nf-btn-sm { padding: 6px 15px; min-height: 32px; font-size: var(--nf-text-label); }
+.nf-btn-lg { padding: 12px 27px; min-height: 48px; font-size: var(--nf-text-body); }
+
+/* Icon slide, opt-in with .nf-btn-slide: the icon moves out on hover, back when the hover ends */
+.nf-btn-slide svg { transition: transform var(--nf-dur-slow) var(--nf-ease-soft); }
+.nf-btn-slide:hover:not(:disabled) svg,
+.nf-btn-slide.is-hover svg { transform: translateX(4px); }
+
+/* Loading state, set data-state="loading" and disable */
+.nf-btn[data-state="loading"] { position: relative; color: transparent; pointer-events: none; }
+.nf-btn[data-state="loading"]::after {
+  content: "";
+  position: absolute;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--nf-midnight) 25%, transparent);
+  border-top-color: var(--nf-midnight);
+  animation: nf-spin 0.7s linear infinite;
+}
+.nf-btn-danger[data-state="loading"]::after {
+  border-color: color-mix(in srgb, var(--nf-white) 35%, transparent);
+  border-top-color: var(--nf-white);
+}
+@keyframes nf-spin { to { transform: rotate(360deg); } }
+
+/* ============================================================
+   5 · Forms
+   ============================================================ */
+
+.nf-field { display: flex; flex-direction: column; gap: var(--nf-space-2); }
+
+.nf-field-label {
+  font-size: var(--nf-text-label);
+  font-weight: var(--nf-weight-heading);
+  color: var(--nf-text);
+}
+
+.nf-input, .nf-select, .nf-textarea {
+  font-family: var(--nf-font-sans);
+  font-size: var(--nf-text-small);
+  color: var(--nf-text);
+  background: var(--nf-field-bg);
+  border: 1px solid var(--nf-border);
+  border-radius: var(--nf-radius-control);
+  min-height: 40px;
+  padding: 0 var(--nf-space-3);
+  transition: border-color var(--nf-dur-fast) var(--nf-ease-out),
+              box-shadow var(--nf-dur-fast) var(--nf-ease-out);
+}
+.nf-textarea { padding: var(--nf-space-2) var(--nf-space-3); min-height: 96px; resize: vertical; line-height: var(--nf-leading-body); }
+
+.nf-input::placeholder, .nf-textarea::placeholder { color: var(--nf-midnight-30); }
+
+.nf-input:hover:not(:disabled):not(:focus),
+.nf-select:hover:not(:disabled):not(:focus),
+.nf-textarea:hover:not(:disabled):not(:focus) { border-color: var(--nf-border-strong); }
+
+.nf-input:focus, .nf-select:focus, .nf-textarea:focus {
+  outline: none;
+  border-color: var(--nf-blue);
+  box-shadow: 0 0 0 3px var(--nf-blue-10);   /* focus ring, not a drop shadow */
+}
+
+.nf-input:disabled, .nf-select:disabled, .nf-textarea:disabled {
+  background: var(--nf-midnight-10);
+  color: var(--nf-midnight-30);
+  cursor: not-allowed;
+}
+
+.nf-input[aria-invalid="true"], .nf-textarea[aria-invalid="true"], .nf-select[aria-invalid="true"] {
+  border-color: var(--nf-danger);
+}
+.nf-input[aria-invalid="true"]:focus { box-shadow: 0 0 0 3px var(--nf-danger-10); }
+
+.nf-helper { font-size: var(--nf-text-caption); color: var(--nf-text-secondary); }
+.nf-error  { font-size: var(--nf-text-caption); color: var(--nf-danger-fg); }
+.nf-success-note { font-size: var(--nf-text-caption); color: var(--nf-success-fg); }
+
+.nf-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23526288' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: var(--nf-space-10);
+}
+
+/* Checkbox + radio, native controls, Midnight accent */
+.nf-checkbox, .nf-radio {
+  width: 18px; height: 18px;
+  accent-color: var(--nf-midnight);
+  margin: 0;
+  flex: none;
+}
+.nf-choice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--nf-space-2);
+  font-size: var(--nf-text-small);
+  cursor: pointer;
+}
+.nf-choice > input { margin-top: 2px; }
+
+/* Switch */
+.nf-switch {
+  appearance: none;
+  width: 40px; height: 22px;
+  border-radius: var(--nf-radius-pill);
+  background: var(--nf-grey-30);
+  border: none;
+  position: relative;
+  cursor: pointer;
+  flex: none;
+  margin: 0;
+  transition: background-color var(--nf-dur-fast) var(--nf-ease-out);
+}
+.nf-switch::before {
+  content: "";
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--nf-midnight);   /* knob is always Midnight */
+  transition: transform var(--nf-dur-fast) var(--nf-ease-out);
+}
+.nf-switch:checked { background: var(--nf-green); }
+.nf-switch:checked::before { transform: translateX(18px); }
+.nf-switch:disabled { background: var(--nf-grey-10); cursor: not-allowed; }
+.nf-switch:disabled::before { background: var(--nf-midnight-30); }
+
+/* ============================================================
+   6 · Cards and surfaces
+   ============================================================ */
+
+.nf-card {
+  background: var(--nf-surface);
+  border: 1px solid var(--nf-border-subtle);
+  border-radius: var(--nf-radius-md);
+  padding: var(--nf-space-6);
+}
+.nf-card-interactive { transition: border-color var(--nf-dur-fast) var(--nf-ease-out); }
+.nf-card-interactive:hover { border-color: var(--nf-border-strong); }
+
+.nf-card-raised { background: var(--nf-surface-raised); border-color: transparent; }
+
+.nf-card-dark {
+  background: var(--nf-surface-dark);
+  border-color: transparent;
+  color: var(--nf-text-on-dark);
+}
+.nf-card-dark h1, .nf-card-dark h2, .nf-card-dark h3, .nf-card-dark h4 { color: var(--nf-text-on-dark); }
+
+/* Stat, label, value, optional detail */
+.nf-stat { display: flex; flex-direction: column; gap: var(--nf-space-1); }
+.nf-stat-label  { font-size: var(--nf-text-label); font-weight: var(--nf-weight-heading); color: var(--nf-text-secondary); }
+.nf-stat-value  { font-size: var(--nf-text-title); font-weight: var(--nf-weight-heading); letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.nf-stat-detail { font-size: var(--nf-text-caption); color: var(--nf-text-secondary); }
+
+/* ============================================================
+   7 · Icon tiles
+   The glyph is LARGER than its pastel square and offset so it
+   overhangs the bottom-right corner. Lucide draws in a 24px
+   viewBox, so stroke-width = 24 / glyph size renders a 1px line.
+   md: 40px tile · 48px glyph · 6px offset · stroke-width 0.5
+   lg: 48px tile · 56px glyph · 8px offset · stroke-width 0.43
+   ============================================================ */
+
+.nf-icon-tile {
+  position: relative;
+  display: inline-block;
+  width: 64px;   /* offset + glyph */
+  height: 64px;
+  flex: none;
+}
+.nf-icon-tile::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 48px; height: 48px;
+  border-radius: var(--nf-radius-sm);   /* backing shares the standard control radius */
+  background: var(--nf-green-10);
+}
+.nf-icon-tile > svg {
+  position: absolute;
+  top: 8px; left: 8px;
+  width: 56px; height: 56px;
+  fill: none;
+  stroke: var(--nf-midnight);
+  stroke-width: 0.43px;   /* 24 / 56 */
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.nf-icon-tile[data-size="md"] { width: 54px; height: 54px; }
+.nf-icon-tile[data-size="md"]::before { width: 40px; height: 40px; }
+.nf-icon-tile[data-size="md"] > svg { top: 6px; left: 6px; width: 48px; height: 48px; stroke-width: 0.5px; }
+
+/* Pastel tones, Midnight glyph */
+.nf-icon-tile[data-tone="tint"]::before   { background: var(--nf-green-10); }
+.nf-icon-tile[data-tone="sky"]::before    { background: var(--nf-blue-10); }
+.nf-icon-tile[data-tone="violet"]::before { background: var(--nf-purple-10); }
+.nf-icon-tile[data-tone="cloud"]::before  { background: var(--nf-midnight-10); }
+
+/* Solid tones, White glyph (Green keeps Midnight: icons on green are fine) */
+.nf-icon-tile[data-tone="green"]::before    { background: var(--nf-green); }
+.nf-icon-tile[data-tone="blue"]::before     { background: var(--nf-blue); }
+.nf-icon-tile[data-tone="purple"]::before   { background: var(--nf-purple); }
+.nf-icon-tile[data-tone="midnight"]::before { background: var(--nf-midnight); }
+.nf-icon-tile[data-tone="blue"] > svg,
+.nf-icon-tile[data-tone="purple"] > svg,
+.nf-icon-tile[data-tone="midnight"] > svg { stroke: var(--nf-white); }
+
+/* ============================================================
+   8 · Gradient backgrounds
+   Two families. Backings: pastel blurs on white, for light
+   heroes and section backgrounds, body text stays legible.
+   Transitions: Midnight with Green/Purple/Blue glows, for dark
+   heroes, dividers, and closing sections.
+   ============================================================ */
+
+.nf-bg-backing-a {
+  /* Soft top-right wash, green and blue merging into the white */
+  background:
+    radial-gradient(58% 68% at 84% -12%, color-mix(in srgb, var(--nf-green-30) 92%, transparent), transparent 78%),
+    radial-gradient(62% 72% at 56% 4%, color-mix(in srgb, var(--nf-blue-50) 62%, transparent), transparent 80%),
+    radial-gradient(52% 62% at 98% 34%, color-mix(in srgb, var(--nf-green-50) 52%, transparent), transparent 78%),
+    var(--nf-white);
+}
+.nf-bg-backing-b {
+  /* Full-canvas wash, blue lower-left into green, purple upper-right */
+  background:
+    radial-gradient(72% 88% at -2% 106%, color-mix(in srgb, var(--nf-blue-50) 68%, transparent), transparent 78%),
+    radial-gradient(66% 78% at 48% 114%, color-mix(in srgb, var(--nf-green-50) 58%, transparent), transparent 76%),
+    radial-gradient(70% 82% at 104% -10%, color-mix(in srgb, var(--nf-purple-30) 82%, transparent), transparent 78%),
+    var(--nf-white);
+}
+.nf-bg-backing-c {
+  /* Bottom-left wash, blue blending into green */
+  background:
+    radial-gradient(62% 78% at 2% 104%, color-mix(in srgb, var(--nf-blue-50) 72%, transparent), transparent 78%),
+    radial-gradient(56% 66% at 36% 98%, color-mix(in srgb, var(--nf-green-50) 58%, transparent), transparent 76%),
+    radial-gradient(46% 56% at 18% 66%, color-mix(in srgb, var(--nf-green-30) 55%, transparent), transparent 78%),
+    var(--nf-white);
+}
+
+.nf-bg-transition-a {
+  /* Section-break slide: strong green corner bottom-left, blue mid, purple bloom right */
+  background:
+    radial-gradient(85% 110% at 84% 60%, color-mix(in srgb, var(--nf-purple) 95%, transparent), transparent 74%),
+    radial-gradient(65% 88% at 42% 98%, color-mix(in srgb, var(--nf-blue-80) 68%, transparent), transparent 68%),
+    radial-gradient(62% 84% at 4% 114%, var(--nf-green), transparent 64%),
+    var(--nf-midnight);
+  color: var(--nf-white);
+}
+.nf-bg-transition-b {
+  /* Green + purple rising from the bottom (transition slide 1) */
+  background:
+    radial-gradient(72% 95% at 68% 112%, color-mix(in srgb, var(--nf-purple) 98%, transparent), transparent 70%),
+    radial-gradient(58% 78% at 32% 116%, var(--nf-green), transparent 64%),
+    radial-gradient(48% 62% at 50% 96%, color-mix(in srgb, var(--nf-blue-80) 60%, transparent), transparent 66%),
+    var(--nf-midnight);
+  color: var(--nf-white);
+}
+.nf-bg-transition-c {
+  /* Purple sweep from top-left, green surge below (transition slide 3) */
+  background:
+    radial-gradient(82% 96% at 22% -18%, color-mix(in srgb, var(--nf-purple) 94%, transparent), transparent 70%),
+    radial-gradient(64% 84% at 58% 126%, var(--nf-green), transparent 64%),
+    var(--nf-midnight);
+  color: var(--nf-white);
+}
+
+/* ============================================================
+   9 · Tables
+   ============================================================ */
+
+.nf-table-wrap {
+  border: 1px solid var(--nf-border);
+  border-radius: var(--nf-radius-sm);
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.nf-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--nf-text-small);
+}
+.nf-table th {
+  background: var(--nf-green);
+  color: var(--nf-midnight);          /* Midnight on green, never white on green */
+  font-family: var(--nf-font-serif);
+  font-weight: 700;
+  font-size: var(--nf-text-small);
+  text-align: left;
+  padding: var(--nf-space-3);
+}
+.nf-table th.nf-numeric, .nf-table td.nf-numeric { text-align: right; }
+.nf-table td {
+  padding: var(--nf-space-3);
+  border-top: 1px solid var(--nf-border);
+  vertical-align: baseline;
+}
+.nf-table tbody tr { background: var(--nf-surface); }  /* no zebra striping */
+
+/* ============================================================
+   10 · Badges, alerts, dividers
+   ============================================================ */
+
+.nf-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--nf-text-caption);
+  font-weight: var(--nf-weight-heading);
+  line-height: 1;
+  padding: 4px 10px;
+  border-radius: var(--nf-radius-pill);
+  background: var(--nf-midnight-10);
+  color: var(--nf-midnight);
+}
+.nf-badge::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--nf-midnight-30);
+  flex: none;
+}
+.nf-badge[data-tone="green"]  { background: var(--nf-green-10); }
+.nf-badge[data-tone="green"]::before { background: var(--nf-green); }
+.nf-badge[data-tone="blue"]   { background: var(--nf-blue-10); }
+.nf-badge[data-tone="blue"]::before { background: var(--nf-blue); }
+.nf-badge[data-tone="purple"] { background: var(--nf-purple-10); }
+.nf-badge[data-tone="purple"]::before { background: var(--nf-purple); }
+.nf-badge[data-tone="success"] { background: var(--nf-success-10); color: var(--nf-success); }
+.nf-badge[data-tone="success"]::before { background: var(--nf-success); }
+.nf-badge[data-tone="warning"] { background: var(--nf-warning-10); color: var(--nf-warning); }
+.nf-badge[data-tone="warning"]::before { background: var(--nf-warning); }
+.nf-badge[data-tone="danger"]  { background: var(--nf-danger-10); color: var(--nf-danger); }
+.nf-badge[data-tone="danger"]::before { background: var(--nf-danger); }
+
+/* Alerts, tinted surface + status icon + Midnight text.
+   NEVER add a coloured left-border stripe: that pattern is banned everywhere. */
+.nf-alert {
+  display: flex;
+  gap: var(--nf-space-3);
+  align-items: flex-start;
+  font-size: var(--nf-text-small);
+  padding: var(--nf-space-3) var(--nf-space-4);
+  border-radius: var(--nf-radius-sm);
+  border: 1px solid color-mix(in srgb, var(--nf-midnight-30) 45%, transparent);
+  background: var(--nf-midnight-10);
+  color: var(--nf-text);
+}
+.nf-alert strong { font-weight: var(--nf-weight-semibold); }
+.nf-alert > svg {
+  width: 18px; height: 18px;
+  flex: none;
+  margin-top: 2px;
+  fill: none;
+  stroke: var(--nf-midnight-50);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.nf-alert[data-tone="info"]    { background: var(--nf-blue-10);    border-color: color-mix(in srgb, var(--nf-blue) 30%, transparent); }
+.nf-alert[data-tone="info"] > svg    { stroke: var(--nf-blue); }
+.nf-alert[data-tone="success"] { background: var(--nf-success-10); border-color: color-mix(in srgb, var(--nf-success) 30%, transparent); }
+.nf-alert[data-tone="success"] > svg { stroke: var(--nf-success); }
+.nf-alert[data-tone="warning"] { background: var(--nf-warning-10); border-color: color-mix(in srgb, var(--nf-warning) 30%, transparent); }
+.nf-alert[data-tone="warning"] > svg { stroke: var(--nf-warning); }
+.nf-alert[data-tone="danger"]  { background: var(--nf-danger-10);  border-color: color-mix(in srgb, var(--nf-danger) 30%, transparent); }
+.nf-alert[data-tone="danger"] > svg  { stroke: var(--nf-danger); }
+
+.nf-divider {
+  border: none;
+  border-top: 1px solid var(--nf-border-subtle);
+  margin: 0;
+}
+
+/* ============================================================
+   11 · Dark theme component adjustments
+   ============================================================ */
+
+[data-theme="dark"] .nf-btn-secondary { color: var(--nf-white); border-color: var(--nf-white); }
+[data-theme="dark"] .nf-btn-secondary:hover:not(:disabled),
+[data-theme="dark"] .nf-btn-secondary.is-hover { background: color-mix(in srgb, var(--nf-white) 12%, transparent); }
+[data-theme="dark"] .nf-btn-ghost { color: var(--nf-white); }
+[data-theme="dark"] .nf-btn-ghost:hover:not(:disabled),
+[data-theme="dark"] .nf-btn-ghost.is-hover { background: color-mix(in srgb, var(--nf-white) 12%, transparent); }
+/* Hovered icon button gains a subtle border so Midnight stays visible on dark surfaces */
+[data-theme="dark"] .nf-btn-icon:hover:not(:disabled),
+[data-theme="dark"] .nf-btn-icon.is-hover,
+.nf-on-dark .nf-btn-icon:hover:not(:disabled),
+.nf-on-dark .nf-btn-icon.is-hover { border-color: var(--nf-dark-border-strong); }
+[data-theme="dark"] .nf-btn:disabled,
+[data-theme="dark"] .nf-btn.is-disabled { background: var(--nf-dark-raised); color: var(--nf-midnight-50); }
+[data-theme="dark"] .nf-btn[data-state="loading"] { color: transparent; }
+[data-theme="dark"] .nf-btn-secondary[data-state="loading"]::after,
+[data-theme="dark"] .nf-btn-ghost[data-state="loading"]::after {
+  border-color: color-mix(in srgb, var(--nf-white) 30%, transparent);
+  border-top-color: var(--nf-white);
+}
+
+[data-theme="dark"] .nf-input:focus,
+[data-theme="dark"] .nf-select:focus,
+[data-theme="dark"] .nf-textarea:focus {
+  border-color: var(--nf-blue-80);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--nf-blue-50) 25%, transparent);
+}
+[data-theme="dark"] .nf-input:disabled,
+[data-theme="dark"] .nf-select:disabled,
+[data-theme="dark"] .nf-textarea:disabled { background: var(--nf-dark-raised); color: var(--nf-midnight-50); }
+[data-theme="dark"] .nf-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2397A1B8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+[data-theme="dark"] .nf-checkbox,
+[data-theme="dark"] .nf-radio { accent-color: var(--nf-green); }
+[data-theme="dark"] .nf-switch { background: var(--nf-midnight-30); }   /* Midnight knob stays visible */
+[data-theme="dark"] .nf-switch:disabled { background: var(--nf-dark-border); }
+
+[data-theme="dark"] .nf-card-dark { background: var(--nf-dark-raised); }
+
+[data-theme="dark"] .nf-alert { background: var(--nf-dark-surface); border-color: var(--nf-dark-border-strong); }
+[data-theme="dark"] .nf-alert > svg { stroke: var(--nf-midnight-30); }
+[data-theme="dark"] .nf-alert[data-tone="info"] { background: color-mix(in srgb, var(--nf-blue) 16%, var(--nf-dark-surface)); border-color: color-mix(in srgb, var(--nf-blue-50) 35%, transparent); }
+[data-theme="dark"] .nf-alert[data-tone="info"] > svg { stroke: var(--nf-blue-50); }
+[data-theme="dark"] .nf-alert[data-tone="success"] { background: color-mix(in srgb, var(--nf-green) 12%, var(--nf-dark-surface)); border-color: color-mix(in srgb, var(--nf-green) 35%, transparent); }
+[data-theme="dark"] .nf-alert[data-tone="success"] > svg { stroke: var(--nf-green); }
+[data-theme="dark"] .nf-alert[data-tone="warning"] { background: color-mix(in srgb, var(--nf-warning) 16%, var(--nf-dark-surface)); border-color: color-mix(in srgb, var(--nf-warning-fg) 35%, transparent); }
+[data-theme="dark"] .nf-alert[data-tone="warning"] > svg { stroke: var(--nf-warning-fg); }
+[data-theme="dark"] .nf-alert[data-tone="danger"] { background: color-mix(in srgb, var(--nf-danger) 16%, var(--nf-dark-surface)); border-color: color-mix(in srgb, var(--nf-danger-fg) 35%, transparent); }
+[data-theme="dark"] .nf-alert[data-tone="danger"] > svg { stroke: var(--nf-danger-fg); }
+
+/* ============================================================
+   12 · Reduced motion
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* Layout: dark brand hero, then a single reading column of question blocks; Q3/Q4 and the two lenses sit side by side. */
+:root{
+  --pg-hero-bg: var(--nf-midnight);
+  --pg-rule: var(--nf-border);
+  --pg-panel: var(--nf-surface-raised);
+  --pg-vote: var(--nf-purple);
+  --pg-tick: var(--nf-midnight);
+  --pg-tick-text: var(--nf-white);
+  --pg-axis: var(--nf-midnight-30);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --nf-text: var(--nf-white); --nf-text-secondary: var(--nf-midnight-30);
+    --nf-surface: var(--nf-dark-bg); --nf-surface-raised: var(--nf-dark-surface); --nf-surface-dark: var(--nf-dark-raised);
+    --nf-border-subtle: var(--nf-dark-border); --nf-border: var(--nf-dark-border); --nf-border-strong: var(--nf-dark-border-strong);
+    --nf-link: var(--nf-blue-50); --nf-focus: var(--nf-green);
+    --pg-tick: var(--nf-midnight-50); --pg-axis: var(--nf-dark-border-strong); --pg-vote: var(--nf-purple-80);
+  }
+}
+:root[data-theme="dark"]{ --pg-tick: var(--nf-midnight-50); --pg-axis: var(--nf-dark-border-strong); --pg-vote: var(--nf-purple-80); }
+body{ background: var(--nf-surface); color: var(--nf-text); }
+h1,h2,h3,h4{ font-weight: var(--nf-weight-heading); text-wrap: balance; margin:0; }
+.hero{ background: var(--pg-hero-bg); padding-block: 48px 56px; }
+.hero-inner{ display:flex; flex-direction:column; gap:16px; }
+.logo svg{ width:132px; height:auto; display:block; }
+.eyebrow{ margin:24px 0 0; font-size: var(--nf-text-label); letter-spacing:.04em; color: var(--nf-midnight-30); }
+.hero h1{ color: var(--nf-white); max-width: 18ch; }
+.hero-lede{ margin:0; font-size: var(--nf-text-lede); color: var(--nf-midnight-30); max-width: 62ch; line-height:1.55; }
+.page{ display:flex; flex-direction:column; gap:0; padding-block: 8px 64px; }
+.block{ display:flex; flex-direction:column; gap:16px; padding-block:48px; border-bottom:1px solid var(--pg-rule); }
+.qtag{ margin:0; font-size: var(--nf-text-label); color: var(--nf-text-secondary); letter-spacing:.02em; }
+.nf-h2{ font-size: 1.5rem; line-height:1.25; }
+.sub{ font-size: 1.125rem; margin-top:16px; }
+.block p, .block li{ max-width: 68ch; }
+.scale-wrap{ display:grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap:32px; align-items:center; }
+.scale{ margin:0; background: var(--pg-panel); border-radius: var(--nf-radius-md, 12px); padding:20px 20px 14px; min-width:0; }
+.scale svg{ width:100%; height:auto; display:block; overflow:visible; }
+.scale .axis{ stroke: var(--pg-axis); stroke-width:4; stroke-linecap:round; }
+.scale .ticks circle{ fill: var(--pg-tick); }
+.scale .tick-num text{ fill: var(--pg-tick-text); font-size:13px; text-anchor:middle; font-family: var(--nf-font-sans); }
+.scale .votes circle{ fill: var(--pg-vote); }
+.scale .tick-label text{ fill: var(--nf-text-secondary); font-size:13px; text-anchor:middle; font-family: var(--nf-font-sans); }
+.scale .tick-label text:first-child{ text-anchor:start; }
+.scale .tick-label text:last-child{ text-anchor:end; }
+.scale-note{ margin:0; font-size: var(--nf-text-lede); line-height:1.55; }
+.why{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:28px 32px; }
+.why-item{ display:flex; flex-direction:column; gap:6px; min-width:0; }
+.why-item h4, .signals h4, .col h4{ font-size:1rem; }
+.why-item p, .signals p{ margin:0; color: var(--nf-text-secondary); line-height:1.55; }
+.why-item h4::before{ content:""; display:block; width:32px; height:4px; background: var(--nf-green); margin-bottom:10px; }
+ul{ margin:0; padding-left:1.1em; display:flex; flex-direction:column; gap:8px; line-height:1.55; }
+.asks{ gap:12px; }
+.note{ margin:0; font-size: var(--nf-text-small); color: var(--nf-text-secondary); }
+.pair{ display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:32px 48px; }
+.col{ display:flex; flex-direction:column; gap:14px; min-width:0; }
+.signals{ display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:24px 28px; }
+.signals > div{ display:flex; flex-direction:column; gap:6px; padding-top:14px; border-top:2px solid var(--nf-green); min-width:0; }
+.nf-table td:first-child{ white-space:nowrap; }
+.nf-table td{ color: var(--nf-text); }
+.lenses{ display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:24px; }
+.lens{ background: var(--pg-panel); border-radius: var(--nf-radius-md, 12px); padding:24px; display:flex; flex-direction:column; gap:16px; min-width:0; }
+.lens-name{ margin:0; font-size:1.125rem; font-weight: var(--nf-weight-heading); }
+.lens-ask{ margin:0; padding-top:16px; border-top:1px solid var(--pg-rule); font-size: var(--nf-text-small); line-height:1.55; }
+.lens-ask span{ display:block; font-size: var(--nf-text-label); color: var(--nf-text-secondary); margin-bottom:4px; }
+.about{ padding-block:40px 0; display:flex; flex-direction:column; gap:10px; }
+.about-title{ font-size:1rem; }
+.about p{ margin:0; font-size: var(--nf-text-small); color: var(--nf-text-secondary); max-width:75ch; line-height:1.6; }
+@media (max-width: 720px){
+  .scale-wrap{ grid-template-columns: minmax(0,1fr); }
+  .nf-table td:first-child{ white-space:normal; }
+  .block{ padding-block:36px; }
+}
+
+
+.qhead{ font-size: 1.5rem; line-height:1.3; max-width: 40ch; }
+.col .qhead{ font-size: 1.25rem; }
+
+.summary{ padding-block: 40px 48px; }
+.exec{ gap:14px; font-size: var(--nf-text-lede); }
+.exec li{ max-width: 72ch; }
+details.board{ border:1px solid var(--pg-rule); border-radius: var(--nf-radius-sm, 8px); background: var(--nf-surface); max-width: 100%; }
+details.board summary{ cursor:pointer; padding:12px 16px; font-size: var(--nf-text-small); font-weight: var(--nf-weight-heading); color: var(--nf-text); list-style-position: inside; }
+details.board summary:focus-visible{ outline:2px solid var(--nf-focus); outline-offset:2px; }
+details.board[open] summary{ border-bottom:1px solid var(--pg-rule); }
+details.board img{ display:block; width:100%; height:auto; max-width:100%; background: var(--nf-white); border-radius: 0 0 var(--nf-radius-sm, 8px) var(--nf-radius-sm, 8px); }
+
+.page ul li::marker{ color: var(--nf-green); }
+.qhead .nf-u{ color: var(--nf-green); }
+</style>
+</head>
+<body>
+<header class="hero nf-on-dark">
+  <div class="nf-container hero-inner">
+    <div class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="1192951 1939614 3983703 689015" width="1673" height="289" role="img" aria-label="Nearform"><path d="M1192951 1939614L1192951 2540039L1289835 2540039L1289835 2114898L1582397 2540039L1672899 2540039L1672899 1939614L1575389 1939614L1575389 2365382L1283453 1939614Z" fill="#FFFFFF"/><path d="M1952716 2170346C2017101 2170346 2062361 2207312 2069994 2272324L1836080 2272324C1843087 2209868 1893442 2170346 1952716 2170346ZM1952090 2095771C1822049 2095771 1736015 2186273 1736015 2321409C1736015 2455901 1822692 2545134 1960366 2545134C2069368 2545134 2143300 2479479 2158601 2392802L2066186 2392802C2053424 2441870 2012007 2469916 1955272 2469916C1882609 2469916 1835437 2420848 1832898 2346273L1832898 2340535L2163695 2340535C2165608 2328416 2166251 2316314 2166251 2305465C2163695 2176728 2081470 2095771 1952090 2095771Z" fill="#FFFFFF"/><path d="M2511080 2344986L2511080 2360287C2510437 2427855 2465821 2473115 2388707 2473115C2337710 2473115 2307108 2447607 2307108 2410642C2307108 2366025 2338979 2344986 2396340 2344986ZM2419292 2095771C2308394 2095771 2235089 2148682 2225525 2234715L2316671 2234715C2323052 2196480 2360018 2170346 2414841 2170346C2476027 2170346 2511080 2200305 2511080 2249390L2511080 2276149L2400165 2276149C2277792 2276149 2212780 2326504 2212780 2416379C2212780 2497962 2279705 2545134 2375319 2545134C2446694 2545134 2491311 2514532 2520643 2469916C2520643 2513263 2541039 2540039 2600956 2540039L2650024 2540039L2650024 2459726L2630915 2459726C2612432 2459726 2602869 2453345 2602869 2431037L2602869 2255754C2602869 2151864 2535944 2095771 2419292 2095771Z" fill="#FFFFFF"/><path d="M3189262 1939614C3104498 1939614 3066889 1981049 3066889 2060075L3066889 2100866L2933666 2100866C2861647 2100866 2826594 2130199 2804286 2167165L2794079 2100866L2711854 2100866L2711854 2540039L2804286 2540039L2804286 2319496C2804286 2251929 2831045 2187560 2913271 2187560L3066889 2187560L3066889 2540039L3160590 2540039L3160590 2187560L3277869 2187560L3277869 2100866L3158678 2100866L3158678 2063900C3158678 2033942 3171423 2021197 3201381 2021197L3277869 2021197L3277869 1939614Z" fill="#FFFFFF"/><path d="M3513052 2174815C3590827 2174815 3642450 2236002 3642450 2320766C3642450 2405547 3590827 2466734 3513052 2466734C3434652 2466734 3384315 2405547 3384315 2320766C3384315 2236002 3434652 2174815 3513052 2174815ZM3513052 2095771C3379203 2095771 3288702 2186273 3288702 2320766C3288702 2455258 3379203 2545777 3513052 2545777C3646919 2545777 3736777 2454615 3736777 2320766C3736777 2186917 3646919 2095771 3513052 2095771Z" fill="#FFFFFF"/><path d="M3796695 2100866L3796695 2540039L3889753 2540039L3889753 2319496C3889753 2251929 3915886 2187560 3998111 2187560L4039546 2187560L4039546 2100866L4019150 2100866C3947131 2100866 3912061 2130199 3889753 2167165L3878920 2100866Z" fill="#FFFFFF"/><path d="M4315538 2095771C4249882 2097041 4212273 2125730 4187427 2158227L4176594 2100866L4096281 2100866L4096281 2540039L4188696 2540039L4188696 2304839C4188696 2227082 4230756 2175441 4291960 2175441C4352504 2175441 4384375 2215606 4384375 2292720L4384375 2540039L4478076 2540039L4478076 2302283C4478076 2223883 4518224 2175441 4581966 2175441C4641884 2175441 4673755 2215606 4673755 2293363L4673755 2540039L4766170 2540039L4766170 2286982C4766170 2148038 4692238 2095771 4601736 2095771C4529700 2095771 4479345 2127643 4451299 2175441C4424540 2119349 4373542 2095771 4315538 2095771Z" fill="#FFFFFF"/><path d="M4815898 2540039L4815898 2628629L5176654 2628629L5176654 2540039Z" fill="#00E5A4"/></svg></div>
+    <p class="eyebrow">AI-native delivery playbook · tech lead sessions, 6 and 7 October 2026</p>
+    <h1 class="nf-display">What our tech leads told us<span class="nf-u">_</span></h1>
+    <p class="hero-lede">Six tech leads running AI-native accounts, two sessions, seven questions. The headline: the tech lead role has changed, and the change is landing on the tech leads and on how their teams behave.</p>
+  </div>
+</header>
+
+<main class="nf-container page">
+
+  <section class="block summary" id="summary">
+    <h2 class="qhead">Summary<span class="nf-u">_</span></h2>
+    <ul class="exec">
+      <li><strong>The role has changed.</strong> Every tech lead who voted put it between "some change" and "completely different". None said it was unchanged.</li>
+      <li><strong>The change is landing on the tech lead.</strong> Work moves faster, clients expect more in less time, and the tech lead carries more at once. Agents let them be hands-on again, but AI has added duties without taking any away.</li>
+      <li><strong>Teams are behaving differently.</strong> On some teams, engineers challenge less and pass on AI output unread, and cheap code makes weighty decisions look cheap. Tech leads handle this case by case and want the expectations written down.</li>
+      <li><strong>They broadly agree on what good looks like.</strong> Set up first, then run at pace. Automate verification. Keep PRs small and flowing. Make sure everyone understands the code. Keep the client close.</li>
+      <li><strong>They want Nearform to take a position on both lenses.</strong> Technical: skills, templates and a reference architecture. People: ways of working, definitions, and guidance on client expectations.</li>
+    </ul>
+  </section>
+
+  <section class="block" id="role">
+    <h2 class="qhead">Q1 · How much has your role changed?<span class="nf-u">_</span></h2>
+    <div class="scale-wrap">
+      <figure class="scale" aria-label="Five votes on a 1 to 5 scale, all between 3 (some change) and 4">
+        <svg viewBox="0 0 560 120" role="img">
+          <title>Five votes, all between 3 and 4 on a 1 to 5 scale</title>
+          <line x1="40" y1="70" x2="520" y2="70" class="axis" />
+          <g class="ticks">
+            <circle cx="40" cy="70" r="14" /><circle cx="160" cy="70" r="14" /><circle cx="280" cy="70" r="14" /><circle cx="400" cy="70" r="14" /><circle cx="520" cy="70" r="14" />
+          </g>
+          <g class="tick-num">
+            <text x="40" y="75">1</text><text x="160" y="75">2</text><text x="280" y="75">3</text><text x="400" y="75">4</text><text x="520" y="75">5</text>
+          </g>
+          <g class="votes">
+            <circle cx="268" cy="38" r="9" /><circle cx="292" cy="22" r="9" /><circle cx="328" cy="38" r="9" /><circle cx="346" cy="18" r="9" /><circle cx="400" cy="38" r="9" />
+          </g>
+          <g class="tick-label">
+            <text x="40" y="110">No change</text><text x="280" y="110">Some change</text><text x="520" y="110" text-anchor="end">Completely different</text>
+          </g>
+        </svg>
+        <figcaption class="nf-caption">One vote per tech lead. Nobody chose 1, 2 or 5.</figcaption>
+      </figure>
+      <p class="scale-note">Everyone said the role has changed: more than "some change", short of "completely different". This matters because the working assumption so far has been that tech lead issues are mostly generic, not specific to AI. The tech leads describe changes that come from working with AI.</p>
+    </div>
+
+    <h3 class="sub">What has changed</h3>
+    <div class="why">
+      <div class="why-item"><h4>Everything moves faster</h4><p>Pace of development, lead time for changes, things happening fast. Work that used to sit on a roadmap for months now turns around in days.</p></div>
+      <div class="why-item"><h4>Cognitive load has grown</h4><p>Tech leads run several streams of work at once with agents in the background. It is possible, and it is draining.</p></div>
+      <div class="why-item"><h4>Tech leads can be hands-on again</h4><p>Agents build software while the tech lead handles alignment, review and the client. Before, there was rarely time to write code as well.</p></div>
+      <div class="why-item"><h4>Expectations have changed</h4><p>Clients have learned that change is cheap and fast, so they expect it. Expectations have to be managed more often, in less time, and alignment with the client is becoming the bottleneck.</p></div>
+      <div class="why-item"><h4>Teams are less opinionated</h4><p>On some teams, engineers challenge less and accept what the AI proposes. Some act as proxies, pasting questions into Claude and its answers back. Decisions flow back to the tech lead, who carries more strain encouraging the right behaviour. Not every team shows it, but it is a challenge to address.</p></div>
+      <div class="why-item"><h4>Cheap code hides weighty decisions</h4><p>Code and experiments are cheap, so decisions feel cheap. Some are not: a pattern, a framework or an infrastructure choice spreads at agent speed and is expensive to undo. Those need more attention, not less.</p></div>
+    </div>
+  
+    <details class="board"><summary>See the board for Q1</summary><img src="img/q1.png" alt="Miro board for Q1: five voting dots on the 1 to 5 scale and the tech leads' stickies on what has changed" loading="lazy"></details>
+  </section>
+
+  <section class="block" id="asks">
+    <h2 class="qhead">Q2 · In your first one to two months, what would have been useful from Nearform?<span class="nf-u">_</span></h2>
+    <ul class="asks">
+      <li><strong>Battle-tested skills and templates</strong> for the Nearform stack, and base skills for setting up back end and front end.</li>
+      <li><strong>Standards and definitions:</strong> a reference architecture for an AI-native project, an AI-native definition of done, documentation templates, and an FAQ for common AI-native challenges. One asked for a Nearform equivalent of an AI-native SDLC playbook.</li>
+      <li><strong>Client guidance:</strong> how to manage client and team expectations on an AI-native team, and how to communicate with the customer.</li>
+      <li><strong>People and culture:</strong> an experienced person to turn to, and cultural alignment.</li>
+    </ul>
+    <p class="note">Most of this matches what they said they would set up themselves in month one (Q6).</p>
+  
+    <details class="board"><summary>See the board for Q2</summary><img src="img/q2.png" alt="Miro board for Q2: stickies on what would have been useful from Nearform" loading="lazy"></details>
+  </section>
+
+  <section class="block" id="works">
+    <div class="pair">
+      <div class="col">
+        <h2 class="qhead">Q3 · What has worked well for you or your team?<span class="nf-u">_</span></h2>
+        <ul>
+          <li><strong>Agents in the workflow:</strong> on tech debt and vulnerabilities, on automated PR reviews, connected to the issue tracker, using the same skills to write and to review code.</li>
+          <li><strong>Decisions made early:</strong> architecture decisions reviewed before implementation starts, the delivery pipeline designed upfront, and a head start for the tech lead before the project starts.</li>
+          <li><strong>Shared skills in the repo</strong> that work like project tooling.</li>
+          <li><strong>Specs that generate the client's paperwork,</strong> such as documents for change management on the way to production.</li>
+          <li><strong>Choice:</strong> let the team pick tools that suit the job.</li>
+        </ul>
+        <p class="note">Almost all of these were marked general rather than account-specific.</p>
+        <details class="board"><summary>See the board for Q3</summary><img src="img/q3.png" alt="Miro board for Q3: green and orange stickies on what has worked well" loading="lazy"></details>
+      </div>
+      <div class="col">
+        <h2 class="qhead">Q4 · What hasn't worked, or has caused friction?<span class="nf-u">_</span></h2>
+        <ul>
+          <li><strong>Unchecked AI output landing on people:</strong> unread AI content handed on, AI talking to AI in PRs and tickets, verbose code and too many comments. The most-voted friction point.</li>
+          <li><strong>Rules nobody set:</strong> no agreed bar for an AI-generated PR, refinement dropped, client engineers allowed to opt out of the AI-native approach.</li>
+          <li><strong>Lost context:</strong> context not shared with everyone's agents, prompt history lost when people work alone.</li>
+          <li><strong>Framework lock-in:</strong> a framework brings a whole process with it, so switching (BMAD, Spec Kit, OpenSpec) is possible but costly. Choose knowing where it is heading.</li>
+          <li><strong>Client constraints,</strong> such as no budget for agentic PR review licences.</li>
+        </ul>
+        <p class="note">The session agreed a norm: people need not know every line the AI wrote, but must understand how it works and answer questions on it. It is enforced case by case today; tech leads want it written down.</p>
+        <details class="board"><summary>See the board for Q4</summary><img src="img/q4.png" alt="Miro board for Q4: green and orange stickies on what has caused friction" loading="lazy"></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="good">
+    <h2 class="qhead">Q5 · What would you see in a well-run AI-native team?<span class="nf-u">_</span></h2>
+    <div class="signals">
+      <div><h4>Quality holds</h4><p>A proper testing pyramid, end-to-end tests where possible, non-functional requirements maintained, quality that does not decline over time, as much automated verification as is sensible.</p></div>
+      <div><h4>Work flows</h4><p>PRs don't pile up, lots of small PRs, fast delivery, people working on several things in parallel.</p></div>
+      <div><h4>Everyone understands it</h4><p>Anyone can describe how the code works, all project context is available to everyone's agents, docs and stories are readable by people.</p></div>
+      <div><h4>The client is close</h4><p>A fast feedback cycle, several demos a week or sprint, good stakeholder alignment.</p></div>
+      <div><h4>The rules are clear</h4><p>Ground rules for what AI-native means here, and an AI-ready definition of done and ready.</p></div>
+    </div>
+  
+    <details class="board"><summary>See the board for Q5</summary><img src="img/q5.png" alt="Miro board for Q5: stickies on what a well-run AI-native team looks like" loading="lazy"></details>
+  </section>
+
+  <section class="block" id="month1">
+    <h2 class="qhead">Q6 · If you started a new AI-native account next week, what would you do in month one?<span class="nf-u">_</span></h2>
+    <div class="pair">
+      <div class="col">
+        <h4>Set up first, then run at pace</h4>
+        <ul>
+          <li>The repo harness: CI gates, project context, specs</li>
+          <li>Automated code validation and AI code review</li>
+          <li>Build and test automation, and an agent that tracks tech debt and bugs over time</li>
+          <li>Skills for the tech stack, observability connected to agents, a full local dev environment</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Agree how the team works</h4>
+        <ul>
+          <li>Discuss how the project code should be set up before building it</li>
+          <li>A structured approach to specs, ADRs and docs</li>
+          <li>Upskill the team properly: pairing, deep dives, ensemble programming, skill sharing</li>
+          <li>Onboard client stakeholders to the ways of working</li>
+        </ul>
+      </div>
+    </div>
+  
+    <details class="board"><summary>See the board for Q6</summary><img src="img/q6.png" alt="Miro board for Q6: stickies on what to do in month one" loading="lazy"></details>
+  </section>
+
+  <section class="block" id="resp">
+    <h2 class="qhead">Q7 · Your top five responsibilities as a tech lead on an AI-native team<span class="nf-u">_</span></h2>
+    <div class="nf-table-wrap">
+      <table class="nf-table">
+        <thead><tr><th>Theme</th><th class="nf-numeric">Tech leads</th><th>In their words</th></tr></thead>
+        <tbody>
+          <tr><td>The client and stakeholders</td><td class="nf-numeric">6 of 6</td><td>Be the glue between the team and the stakeholders; keep expectations aligned; a tight feedback loop with the client; make all work visible to the client</td></tr>
+          <tr><td>AI enablement and upskilling</td><td class="nf-numeric">4 of 6</td><td>Set expectations for how the team uses AI; champion AI-native practice; make sure the team is willing to upskill</td></tr>
+          <tr><td>Technical direction and ownership</td><td class="nf-numeric">4 of 6</td><td>Guide architecture; oversee standards; manual code review; make people responsible for what they deliver</td></tr>
+          <tr><td>Everything that was there before</td><td class="nf-numeric">2 of 6</td><td>"Everything else"; "all the things we were doing before"</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">The AI responsibilities were added on top. Nothing was taken away, which matches the growing load in Q1.</p>
+  
+    <details class="board"><summary>See the board for Q7</summary><img src="img/q7.png" alt="Miro board for Q7: six lanes of five stickies on tech lead responsibilities" loading="lazy"></details>
+  </section>
+
+  <section class="block" id="lenses">
+    <h2 class="nf-title">Two lenses<span class="nf-u">_</span></h2>
+    <p class="nf-lede">The answers split into a technical lens and a people lens. Both matter, and the people lens is where tech leads asked Nearform to take a position.</p>
+    <div class="lenses">
+      <div class="lens">
+        <p class="lens-name">Technical lens</p>
+        <ul>
+          <li>Skills, templates and a reference architecture</li>
+          <li>The repo harness, CI gates and automated review</li>
+          <li>Shared context for agents</li>
+          <li>Testing and verification</li>
+          <li>Choosing a framework knowing the cost of leaving it</li>
+        </ul>
+        <p class="lens-ask"><span>Asked of Nearform</span>Battle-tested skills and templates, base set-up skills, a reference architecture, documentation templates.</p>
+      </div>
+      <div class="lens">
+        <p class="lens-name">People lens</p>
+        <ul>
+          <li>Ways of working, and a definition of done for AI-native work</li>
+          <li>Expectations: owning and understanding AI-generated work, no proxies</li>
+          <li>A team that challenges and keeps its judgement</li>
+          <li>Communicating with the client and managing expectations at AI pace</li>
+          <li>Upskilling and sharing knowledge</li>
+        </ul>
+        <p class="lens-ask"><span>Asked of Nearform</span>Client expectation guidelines, how to communicate with the customer, an AI-native definition of done, an FAQ, cultural alignment, someone experienced to ask.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="about">
+    <h2 class="about-title">About this summary</h2>
+    <p>Six tech leads on AI-native accounts, chosen as people with a credible view, answered on a shared board over two sessions on 6 and 7 October 2026. Contributions were anonymous, so these are themes, not counts, except where noted. The first session was transcribed; the second is summarised from the facilitator's notes.</p>
+  </footer>
+</main>
+
+</body>
+</html>
